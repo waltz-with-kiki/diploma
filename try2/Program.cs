@@ -14,6 +14,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AccountDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MSSQL")));
 
+
 /*builder.Services.AddDbContext<AccountDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("AccountDbContext")));*/
 
@@ -23,6 +24,7 @@ builder.Services.AddTransient<IRepository<User>, DbRepository<User>>();
 
 
 var app = builder.Build();
+
 
 
 // Configure the HTTP request pipeline.
@@ -36,10 +38,20 @@ app.UseStaticFiles();
 app.UseRouting();
 
 
+
+app.UseCors(
+    x =>
+    {
+        x.WithHeaders().AllowAnyHeader();
+        x.WithOrigins("https://localhost:44449");
+        x.WithMethods().AllowAnyMethod();
+    }
+    );
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
 
-app.MapFallbackToFile("index.html"); 
+app.MapFallbackToFile("index.html");
 
 app.Run();

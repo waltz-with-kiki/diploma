@@ -12,7 +12,7 @@ using try2.DAL;
 namespace try2.DAL.Migrations
 {
     [DbContext(typeof(AccountDbContext))]
-    [Migration("20240127200528_NewMigration")]
+    [Migration("20240128094246_NewMigration")]
     partial class NewMigration
     {
         /// <inheritdoc />
