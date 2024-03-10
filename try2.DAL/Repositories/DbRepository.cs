@@ -5,9 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using try2.DAL.Interfaces;
+using try2.DAL.Models;
 using try2.Domain.Entities;
 using try2.Domain.Entities.Base;
-using try2.Domain.Models.Entities;
+using Version = try2.DAL.Models.Version;
 
 namespace try2.DAL.Repositories
 {
@@ -15,7 +16,7 @@ namespace try2.DAL.Repositories
     {
         private readonly DbSet<T>? _Set;
 
-        private readonly AccountDbContext _db;
+        private readonly AirplanesDbContext _db;
 
         public virtual IQueryable<T> Items => _Set;
 
@@ -77,35 +78,56 @@ namespace try2.DAL.Repositories
             await _db.SaveChangesAsync();
         }
 
-        public DbRepository(AccountDbContext db)
+        public DbRepository(AirplanesDbContext db)
         {
             _db = db;
             _Set = db.Set<T>();
         }
     }
 
-    public class UserRepository : DbRepository<User>
+    public class ProjectRepository : DbRepository<Project>
     {
 
-        public override IQueryable<User> Items => base.Items.Include(item => item.Profiles);
+        public override IQueryable<Project> Items => base.Items.Include(item => item.Versions);
 
-        public UserRepository(AccountDbContext db) : base(db)
+        public ProjectRepository(AirplanesDbContext db) : base(db)
         {
-
 
         }
     }
 
-    public class ProfileRepository : DbRepository<Profile>
+    public class VersionRepository : DbRepository<Version>
     {
 
-        public override IQueryable<Profile> Items => base.Items.Include(item => item.ThisUser);
+        public override IQueryable<Version> Items => base.Items.Include(item => item.Project);
 
-        public ProfileRepository(AccountDbContext db) : base(db)
+        public VersionRepository(AirplanesDbContext db) : base(db)
         {
-
 
         }
     }
+    /*  public class UserRepository : DbRepository<User>
+      {
 
+          public override IQueryable<User> Items => base.Items.Include(item => item.Profiles);
+
+          public UserRepository(AccountDbContext db) : base(db)
+          {
+
+
+          }
+      }
+
+      public class ProfileRepository : DbRepository<Profile>
+      {
+
+          public override IQueryable<Profile> Items => base.Items.Include(item => item.ThisUser);
+
+          public ProfileRepository(AccountDbContext db) : base(db)
+          {
+
+
+          }
+      }
+    */
 }

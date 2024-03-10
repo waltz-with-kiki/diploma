@@ -8,6 +8,6 @@ namespace try2.Domain.Entities.Base
 {
     abstract public class Entity
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
     }
 }

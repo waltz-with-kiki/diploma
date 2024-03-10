@@ -1,7 +1,10 @@
-import { Counter } from "./components/Counter";
-import { FetchData } from "./components/FetchData";
+
 import { Home } from "./components/Home";
-import UserCreator from "./components/UserCreator.jsx";
+import PreparationPage from "./components/PreparationPage.jsx";
+import ExperimentPage from "./components/ExperimentPage.jsx";
+import ExpertAssessmentPage from "./components/ExpertAssessmentPage.jsx";
+import AnalysisPage from "./components/AnalysisPage.jsx";
+
 
 const AppRoutes = [
   {
@@ -9,17 +12,22 @@ const AppRoutes = [
     element: <Home />
   },
   {
-    path: '/counter',
-    element: <Counter />
+    path: '/preparation',
+    element: <PreparationPage></PreparationPage>
   },
   {
-    path: '/fetch-data',
-    element: <FetchData />
+    path: '/experiment',
+    element: <ExperimentPage></ExperimentPage>
   },
-    {
-        path: '/user-creator',
-        element: <UserCreator />
-    }
+  {
+    path: '/expertAssessment',
+    element: <ExpertAssessmentPage></ExpertAssessmentPage>
+  },
+  {
+    path: '/analysis',
+    element: <AnalysisPage></AnalysisPage>
+  },
+  
 ];
 
 export default AppRoutes;

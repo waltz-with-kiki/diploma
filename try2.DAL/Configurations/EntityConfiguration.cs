@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿/*using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using try2.Domain.Entities;
 using try2.Domain.Entities.Base;
-using try2.Domain.Models.Entities;
 
 namespace try2.DAL.Configurations
 {
@@ -20,3 +19,4 @@ namespace try2.DAL.Configurations
         }
     }
 }
+*/

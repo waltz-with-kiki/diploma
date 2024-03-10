@@ -1,9 +1,11 @@
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 using try2.DAL;
 using try2.DAL.Interfaces;
+using try2.DAL.Models;
 using try2.DAL.Repositories;
 using try2.Domain.Entities;
-using try2.Domain.Models.Entities;
+using Version = try2.DAL.Models.Version;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,16 +13,21 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<AccountDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("MSSQL")));
-
+builder.Services.AddControllersWithViews()
+    .AddJsonOptions(options => options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 /*builder.Services.AddDbContext<AccountDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("AccountDbContext")));*/
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MSSQL")));*/
 
-builder.Services.AddTransient<IRepository<Profile>, DbRepository<Profile>>();
 
-builder.Services.AddTransient<IRepository<User>, DbRepository<User>>();
+builder.Services.AddDbContext<AirplanesDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("POSTGRESQL")));
+
+
+
+builder.Services.AddTransient<IRepository<Version>, VersionRepository>();
+
+builder.Services.AddTransient<IRepository<Project>, ProjectRepository>();
 
 
 var app = builder.Build();
