@@ -11,6 +11,7 @@ const List = ({ remove, children , onSelectProject, ...props}) =>{
       e.preventDefault();
       console.log(selectedItem);
       remove(selectedItem);
+      onSelectProject(null);
     }
 
     const handleSelectItem = (item) => {
@@ -21,7 +22,7 @@ const List = ({ remove, children , onSelectProject, ...props}) =>{
     return(
         <div>
           <strong>{children}</strong>
-          <MyButton onClick={RemoveSelectedItem}>Meow</MyButton>
+          <MyButton onClick={RemoveSelectedItem}>Удалить</MyButton>
             {props.Projects.map((item) => (
         <ListItem
           key={item.id} // Убедитесь, что у ваших элементов есть уникальные ключи

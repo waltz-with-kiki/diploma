@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MyButton from "./UI/MyButton";
 import VersionItem from "./VersionItem";
 
-const VersionsList = ({ remove, children , selectedProject, ...props}) =>{
+const VersionsList = ({ remove, children , selectedProject, selectedVersion, ...props}) =>{
 
     const [selectedItem, setSelectedItem] = useState(null);
 
@@ -10,20 +10,27 @@ const VersionsList = ({ remove, children , selectedProject, ...props}) =>{
     {
       e.preventDefault();
       console.log(selectedItem);
-      remove(selectedItem);
+      remove(selectedProject, selectedItem);
     }
+
+    useEffect(() => {
+      
+      setSelectedItem(null);
+      selectedVersion(null);
+  }, [selectedProject]);
 
     const handleSelectItem = (item) => {
         setSelectedItem(item);
+        selectedVersion(item);
       }
 
     return(
         <div>
           <strong>{children}</strong>
-          <MyButton onClick={RemoveSelectedItem}>Meow</MyButton>
+          <MyButton onClick={RemoveSelectedItem}>Удалить</MyButton>
             {selectedProject.versions.map((item) => (
         <VersionItem
-          key={item.id} // Убедитесь, что у ваших элементов есть уникальные ключи
+          key={item.id} 
           item={item}
           onSelect={handleSelectItem}
           isSelected={item === selectedItem}

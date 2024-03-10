@@ -1,0 +1,22 @@
+.popup-container {
+    position: fixed;
+    bottom: 20px; 
+    right: 20px; 
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    border-radius: 10px; 
+  }
+  
+  .popup-container.show {
+    display: block;
+  }
+
+  @media (max-width: 600px) {
+    
+    .popup-container {
+      width: 80%;
+      
+    }
+  }
