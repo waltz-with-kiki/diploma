@@ -24,60 +24,86 @@ const Project = () => {
     setFormVisible(false);
   };
 
-  const handleAddVersion = (newVersion) => {
-    setSelectedProject(prevProject => ({
-      ...prevProject,
-      versions: [...prevProject.versions, newVersion],
-    }));
+  const handleAddVersion = async (newVersion) => {
+
+
+    console.log(selectedProject);
     console.log(newVersion);
-    hideForm(); 
+
+    const response = await fetch('https://localhost:7150/api/accounts/addversion', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ProjectId: selectedProject.id, N: newVersion.n, Nn: newVersion.nn, Nnn: newVersion.nnn, Descr: newVersion.descr
+                }),
+            });
+   
+            hideForm();
+    
+    fetchProjects();
+
+
   };
 
   const handleChangeVersion = (selectedVersion) => {
 
   }
 
-    const AddNewProject = (e) =>{
+    const AddNewProject = async (e) =>{
         e.preventDefault();
         const Project = {
             ...NewProject,
         }
-        setProjects((prevProjects) => [...prevProjects, Project]);
+
+        console.log(Project);
+
+        const response = await fetch('https://localhost:7150/api/accounts/addproject', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({Name: Project.name
+                }),
+            });
+
+        //setProjects((prevProjects) => [...prevProjects, Project]);
+        fetchProjects();
         setNewProject({ name: '' });
     }
 
     const DeleteProject = async (project) => {
       
-      /*const response = await fetch('https://localhost:7150/api/accounts/profiles/remove', {
+      console.log(project);
+
+      const response = await fetch('https://localhost:7150/api/accounts/removeproject', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({nickName: profilenickName
+                body: JSON.stringify({Name: project.name
                 }),
             });
-      */
 
-      const UpdateProjects = Projects.filter((element) => element.name !== project.name);
-
-      setProjects(UpdateProjects);
-      
+      fetchProjects();
     }
 
-    const DeleteVersion = async (project, version) => {
+    const DeleteVersion = async (version) => {
       
-      /*const response = await fetch('https://localhost:7150/api/accounts/profiles/remove', {
+      console.log(selectedProject);
+      console.log(version);
+
+      const response = await fetch('https://localhost:7150/api/accounts/removeversion', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({nickName: profilenickName
+                body: JSON.stringify({ProjectId: selectedProject.id, N: version.n, Nn: version.nn, Nnn: version.nnn, Descr: version.descr
                 }),
             });
-      */
-            console.log(selectedProject);
-
-            const projectToUpdate = Projects.find((p) => p.name === project.name);
+      
+      fetchProjects();
+          /*  const projectToUpdate = Projects.find((p) => p.name === project.name);
 
             if (projectToUpdate) {
               const updatedVersions = projectToUpdate.versions.filter((v) => v.id !== version.id);
@@ -89,7 +115,7 @@ const Project = () => {
           p.name === projectToUpdate.name ? projectToUpdate : p
         )
       );
-            }
+            }*/
             
       //setProjects(UpdateProjects);
     }

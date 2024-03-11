@@ -30,26 +30,26 @@ namespace try2.Controllers
 
         
 
-        public record NewProject
+        public record TransferProject
         {
             public string Name { get; set; }
         }
 
-        [HttpPost]
-        [Route("/addproject")]
+        [HttpPost("addproject")]
 
-        public IActionResult Add([FromBody] NewProject project)
+        public IActionResult AddProject([FromBody] TransferProject project)
         {
             if(project.Name != null)
             {
                 Project check = _RepProjects.Items.Where(x => x.Name == project.Name).FirstOrDefault();
 
-                if(check == null)
+                if (check == null)
                 {
                     Project newProject = new Project { Name = project.Name };
 
                     _RepProjects.Add(newProject);
                 }
+                else return BadRequest(new { ErrorMessage = "Проект с указанным именем уже существует." });
 
                 // Возвращаем успешный статус
                 return Ok();
@@ -57,6 +57,106 @@ namespace try2.Controllers
 
             return NoContent();
         }
+
+        
+            [HttpPost("removeproject")]
+
+        public IActionResult RemoveProject([FromBody] TransferProject project)
+        {
+            if (project.Name != null)
+            {
+                Project check = _RepProjects.Items.Where(x => x.Name == project.Name).FirstOrDefault();
+
+                if (check != null)
+                {
+                    _RepProjects.Remove(check.Id);
+                }
+                // Возвращаем успешный статус
+                return Ok();
+            }
+
+            return NoContent();
+        }
+
+
+        public record TransferVersion
+        {
+            public long ProjectId { get; set; }
+
+            public int? N { get; set; }
+
+            public int? Nn { get; set; }
+
+            public int? Nnn { get; set; }
+
+            public string? Descr { get; set; }
+
+        }
+
+
+        [HttpPost("addversion")]
+
+        public IActionResult AddVersion([FromBody] TransferVersion version)
+        {
+            if (version != null && (version.N != null && version.Nn != null && version.Nnn != null) && version.ProjectId != 0)
+            {
+                Project check = _RepProjects.Items.Where(x => x.Id == version.ProjectId).FirstOrDefault();
+
+                if (check != null)
+                {
+                    Version checkversion = check.Versions.Where(x => (x.N == version.N) && (x.Nn == version.Nn) && (x.Nnn == version.Nnn)).FirstOrDefault();
+
+                    if (checkversion == null)
+                    {
+                        Version newversion = new Version
+                        {
+                            ProjectId = version.ProjectId,
+                            N = version.N,
+                            Nn = version.Nn,
+                            Nnn = version.Nnn,
+                            Descr = version.Descr
+                        };
+                        _RepVersions.Add(newversion);
+
+                    }
+                    else return BadRequest(new { ErrorMessage = "Такая версия в данном проекте уже имеется" });
+
+                }
+                else return BadRequest(new { ErrorMessage = "Проекта не существует в базе данных"});
+                // Возвращаем успешный статус
+                return Ok();
+            }
+
+            return NoContent();
+        }
+
+        [HttpPost("removeversion")]
+
+        public IActionResult RemoveVersion([FromBody] TransferVersion version)
+        {
+            if (version != null && version.ProjectId != 0)
+            {
+                Project reqproject = _RepProjects.Items.Where(x => x.Id == version.ProjectId).FirstOrDefault();
+
+                if(reqproject != null)
+                {
+                    Version reqversion = reqproject.Versions.Where(x => x.N == version.N && x.Nn == version.Nn && x.Nnn == version.Nnn).FirstOrDefault();
+
+                    if(reqversion != null)
+                    {
+                        _RepVersions.Remove(reqversion.Id);
+                    }
+                    else return BadRequest(new { ErrorMessage = "Версии в данном проекте не существует" });
+                }
+                else return BadRequest(new { ErrorMessage = "Проекта не существует в базе данных" });
+
+                // Возвращаем успешный статус
+                return Ok();
+            }
+
+            return NoContent();
+        }
+
 
     }
 }

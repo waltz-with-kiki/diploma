@@ -10,9 +10,9 @@ namespace try2.DAL.Interfaces
     {
         IQueryable<T> Items { get; }
 
-        T Get(int id);
+        T Get(long id);
 
-        Task GetAsync(int id);
+        Task GetAsync(long id);
 
         T Add(T item);
 
@@ -22,8 +22,8 @@ namespace try2.DAL.Interfaces
 
         Task UpdateAsync(T item);
 
-        void Remove(int id);
+        void Remove(long id);
 
-        Task RemoveAsync(int id);
+        Task RemoveAsync(long id);
     }
 }

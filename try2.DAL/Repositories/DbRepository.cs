@@ -37,14 +37,14 @@ namespace try2.DAL.Repositories
             return item;
         }
 
-        public T Get(int id)
+        public T Get(long id)
         {
             return Items.FirstOrDefault(i => i.Id == id);
         }
 
-        public async Task GetAsync(int id) => await Items.SingleOrDefaultAsync(i => i.Id == id).ConfigureAwait(false);
+        public async Task GetAsync(long id) => await Items.SingleOrDefaultAsync(i => i.Id == id).ConfigureAwait(false);
 
-        public void Remove(int id)
+        public void Remove(long id)
         {
             var item = _Set.Local.FirstOrDefault(i => i.Id == id) ?? new T { Id = id };
 
@@ -53,7 +53,7 @@ namespace try2.DAL.Repositories
             _db.SaveChanges();
         }
 
-        public async Task RemoveAsync(int id)
+        public async Task RemoveAsync(long id)
         {
             var item = await _db.Set<T>().Where(i => i.Id == id).SingleOrDefaultAsync() ?? new T { Id = id };
             _db.Remove(item);

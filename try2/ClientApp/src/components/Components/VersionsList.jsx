@@ -10,7 +10,7 @@ const VersionsList = ({ remove, children , selectedProject, selectedVersion, ...
     {
       e.preventDefault();
       console.log(selectedItem);
-      remove(selectedProject, selectedItem);
+      remove(selectedItem);
     }
 
     useEffect(() => {
