@@ -20,3 +20,65 @@
       
     }
   }
+
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .page {
+    clear: both;
+  }
+  
+  .left-section {
+    float: left; /* Выравнивание влево */
+  width: 50%; /* 50% ширины контейнера */
+  }
+  
+  .right-section {
+    float: right; /* Выравнивание вправо */
+  width: 50%; /* 50% ширины контейнера */
+  }
+
+  
+  .list{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 500px;
+    padding: 5px;
+    max-height: 195px; /* Например, ограничим высоту на 5 элементов */
+    overflow-y: auto; 
+  }
+
+  .button-container {
+    margin-left: auto;
+    display: flex;
+    flex-direction: column; /* Расположение кнопок в столбик */
+    align-items: center;
+  }
+
+.span{
+  display: flex;
+  width: 20px;
+  margin-top: 4%;
+  font-size: 20px;
+}
+
+  .project {
+    margin-bottom: 5px;
+    width: 100%;
+    padding: 5px;
+    display: flex;
+    padding: "15px";
+    border-radius: 3px;
+    border: 1px solid;
+  flex-direction: row;
+}
+
+.button1{
+  background-color:aliceblue;
+  min-width: 100px;
+  border-radius: 3px;
+  margin: 3px;
+}

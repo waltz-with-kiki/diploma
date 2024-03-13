@@ -35,11 +35,16 @@ namespace try2.Controllers
             public string Name { get; set; }
         }
 
+        public record TransferProjectId : TransferProject
+        {
+            public long id { get; set; }
+        }
+
         [HttpPost("addproject")]
 
         public IActionResult AddProject([FromBody] TransferProject project)
         {
-            if(project.Name != null)
+            if(project.Name.Length > 3 && project.Name.Length < 32)
             {
                 Project check = _RepProjects.Items.Where(x => x.Name == project.Name).FirstOrDefault();
 
@@ -79,6 +84,27 @@ namespace try2.Controllers
         }
 
 
+
+        public IActionResult ChangeProject([FromBody] TransferProjectId project)
+        {
+            if (project != null && project.id != 0 && project.Name != null && project.Name.Length >= 3 && project.Name.Length < 32)
+            {
+                Project check = _RepProjects.Items.Where(x => x.Id == project.id).FirstOrDefault();
+
+                if (check != null)
+                {
+                    check.Name = project.Name;
+                    _RepProjects.Update(check);
+                }
+                else return BadRequest(new { ErrorMessage = "Проект не получается найти в базе данных" });
+                // Возвращаем успешный статус
+                return Ok();
+            }
+
+            return NoContent();
+        }
+
+
         public record TransferVersion
         {
             public long ProjectId { get; set; }
@@ -98,7 +124,7 @@ namespace try2.Controllers
 
         public IActionResult AddVersion([FromBody] TransferVersion version)
         {
-            if (version != null && (version.N != null && version.Nn != null && version.Nnn != null) && version.ProjectId != 0)
+            if (version != null && version.ProjectId != 0 && (version.N != null && version.Nn != null && version.Nnn != null))
             {
                 Project check = _RepProjects.Items.Where(x => x.Id == version.ProjectId).FirstOrDefault();
 

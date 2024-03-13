@@ -1,0 +1,39 @@
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.App{
+    margin: 20px;
+}
+
+.modal {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    top: 0; /* Расположение модального окна в вертикальном направлении на 50% от верха */
+    left: 0; /* Расположение модального окна в горизонтальном направлении на 50% от левого края */
+    display: flex;
+    justify-self: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    align-items: center;
+    transition: 0.5s;
+}
+
+.modal.active{
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal_content{
+    padding: 20px;
+    border-radius: 10px;
+    background-color: white;
+    height: 400px;
+    width: 400px;
+}

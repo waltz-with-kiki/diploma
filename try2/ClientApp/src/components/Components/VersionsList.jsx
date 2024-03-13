@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import MyButton from "./UI/MyButton";
 import VersionItem from "./VersionItem";
+import "../Projectstyles.css"
 
 const VersionsList = ({ remove, children , selectedProject, selectedVersion, ...props}) =>{
 
@@ -25,9 +26,9 @@ const VersionsList = ({ remove, children , selectedProject, selectedVersion, ...
       }
 
     return(
-        <div>
-          <strong>{children}</strong>
-          <MyButton onClick={RemoveSelectedItem}>Удалить</MyButton>
+      <div>
+        <strong>{children}</strong>
+        <div className="list">
             {selectedProject.versions.map((item) => (
         <VersionItem
           key={item.id} 
@@ -36,6 +37,7 @@ const VersionsList = ({ remove, children , selectedProject, selectedVersion, ...
           isSelected={item === selectedItem}
         />
       ))}
+    </div>
     </div>
     );
 }

@@ -1,38 +1,44 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import ListItem from "./ListItem";
 import MyButton from "./UI/MyButton";
+import "../Projectstyles.css"
 
-const List = ({ remove, children , onSelectProject, ...props}) =>{
+const List = ({ remove, children, ClearselectedVersion, onSelectProject, ...props }) => {
+  const [selectedItem, setSelectedItem] = useState(null);
 
-    const [selectedItem, setSelectedItem] = useState(null);
+  const RemoveSelectedItem = (e, thisItemRemove) => {
+    e.preventDefault();
+    
+    remove(thisItemRemove);
+  };
 
-    const RemoveSelectedItem = (e) =>
-    {
-      e.preventDefault();
-      console.log(selectedItem);
-      remove(selectedItem);
-      onSelectProject(null);
-    }
+  const handleSelectItem = (item) => {
+    setSelectedItem(item);
+    onSelectProject(item);
+    ClearselectedVersion(null);
+  };
 
-    const handleSelectItem = (item) => {
-        setSelectedItem(item);
-        onSelectProject(item);
-      }
+  return (
+    <div>
+      <strong>{children}</strong>
+    <div className="list">
 
-    return(
-        <div>
-          <strong>{children}</strong>
-          <MyButton onClick={RemoveSelectedItem}>Удалить</MyButton>
-            {props.Projects.map((item) => (
+      {props.Projects.map((item) => (
         <ListItem
           key={item.id} // Убедитесь, что у ваших элементов есть уникальные ключи
           item={item}
           onSelect={handleSelectItem}
           isSelected={item === selectedItem}
+          onRemove={RemoveSelectedItem}
+          onEdit={(editedItem) => {
+            // Обработка изменений
+            console.log("Edited Item:", editedItem);
+          }}
         />
       ))}
     </div>
-    );
-}
+    </div>
+  );
+};
 
 export default List;
