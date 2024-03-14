@@ -7,11 +7,6 @@ const ExpertAssessmentPage = () =>{
 
     const [modalActive, setModalActive] = useState(false);
 
-    /*{modalActive &&
-        (<MyModal active={modalActive} setActive={setModalActive}>
-            <span>Слава богу</span>
-        </MyModal>)}
-*/
     return(
         <div className="App">
             <h1>Экспертное оценивание</h1>

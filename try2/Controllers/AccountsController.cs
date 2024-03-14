@@ -184,5 +184,47 @@ namespace try2.Controllers
         }
 
 
+        public record TransferVersionId : TransferVersion
+        {
+            public long Id { get; set; }
+
+        }
+
+        [HttpPost("changeversion")]
+
+        public IActionResult ChangeVersion([FromBody] TransferVersionId version)
+        {
+            if (version != null && version.ProjectId != 0 && (version.N != null && version.Nn != null && version.Nnn != null))
+            {
+                Project check = _RepProjects.Items.Where(x => x.Id == version.ProjectId).FirstOrDefault();
+
+                if (check != null)
+                {
+                    Version checkversion = check.Versions.Where(x => (x.N == version.N) && (x.Nn == version.Nn) && (x.Nnn == version.Nnn)).FirstOrDefault();
+
+                    if (checkversion == null)
+                    {
+                        checkversion = check.Versions.Where(x => x.Id == version.Id).FirstOrDefault();
+                        
+                        if (checkversion != null)
+                        {
+                            Version UpdateVersion = new Version { Id = checkversion.Id, N = version.N, Nn = version.Nn, Nnn = version.Nnn, Descr = version.Descr, ProjectId = checkversion.ProjectId, Examinations = checkversion.Examinations };
+                            _RepVersions.Update(UpdateVersion);
+                        }
+                        else return NotFound(new { ErrorMessage = "Версия с указанным Id не найдена в проекте" });
+
+                    }
+                    else return BadRequest(new { ErrorMessage = "Такая версия в данном проекте уже имеется" });
+
+                }
+                else return NotFound(new { ErrorMessage = "Проект с таким Id не найден" });
+                // Возвращаем успешный статус
+                return Ok();
+            }
+
+            return NoContent();
+        }
+
+
     }
 }

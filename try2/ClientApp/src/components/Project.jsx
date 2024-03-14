@@ -47,13 +47,48 @@ const Project = () => {
 
     hideForm();
 
+    //Как-то обновлять список
+
     fetchProjects();
 
 
   };
 
-  const handleChangeVersion = (selectedVersion) => {
+  const handleChangeVersionPreCheck = (newVersion) =>{
 
+    const Version = selectedProject.versions.find(version => 
+      version.n === newVersion.n && 
+      version.nn === newVersion.nn && 
+      version.nnn === newVersion.nnn
+  );
+
+  if (Version == null){
+    selectedVersion.n = newVersion.n;
+      selectedVersion.nn = newVersion.nn;
+      selectedVersion.nnn = newVersion.nnn;
+      selectedVersion.descr = newVersion.descr;
+
+      handleChangeVersion(selectedVersion);
+  }
+
+  }
+
+  const handleChangeVersion = async (selectedVersion1) => {
+      console.log("Проверка изменения");
+
+      console.log(selectedVersion1);
+
+      const response = await fetch('https://localhost:7150/api/accounts/changeversion', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        Id: selectedVersion.id, ProjectId: selectedProject.id, N: selectedVersion.n, Nn: selectedVersion.nn, Nnn: selectedVersion.nnn, Descr: selectedVersion.descr
+      }),
+    });
+
+    hideForm();
   }
 
   const AddNewProject = async (e) => {
@@ -126,22 +161,14 @@ const Project = () => {
       }),
     });
 
+
+    //Желательно поменять логику
+    setTimeout(() => {
+      setSelectedProject(null);
+    }, 0);
+
     fetchProjects();
-    /*  const projectToUpdate = Projects.find((p) => p.name === project.name);
-
-      if (projectToUpdate) {
-        const updatedVersions = projectToUpdate.versions.filter((v) => v.id !== version.id);
-
-        projectToUpdate.versions = updatedVersions;
-
-        setProjects((prevProjects) =>
-  prevProjects.map((p) =>
-    p.name === projectToUpdate.name ? projectToUpdate : p
-  )
-);
-      }*/
-
-    //setProjects(UpdateProjects);
+    
   }
 
 
@@ -166,6 +193,7 @@ const Project = () => {
     <div className="page">
       <MyInput style={{marginBottom: "10px"}} value={NewProject.name} onChange={(e) => setNewProject({ ...NewProject, name: e.target.value })}></MyInput>
       <MyButton onClick={AddNewProject}>Добавить</MyButton>
+      
       <div className="left-section">
       <List remove={DeleteProject} Projects={Projects} ClearselectedVersion={setSelectedVersion} onSelectProject={setSelectedProject} onEditProject={EditProject}>Проекты</List>
       </div>
@@ -173,7 +201,9 @@ const Project = () => {
       <div>
           <MyButton onClick={selectedProject ? () => showForm(true) : () => {}}>Добавить</MyButton>
           <MyButton onClick={selectedVersion ? () => showForm(false) : () => {}}>Изменить</MyButton>
+          <MyButton onClick={selectedProject && selectedVersion  ? () => DeleteVersion(selectedVersion) : () => {}}>Удалить</MyButton>
       </div>
+      
 
       <div className="right-section">
       {(selectedProject && selectedProject.versions && selectedProject.versions.length > 0) && (
@@ -187,7 +217,7 @@ const Project = () => {
         <div>
           {changeAddForm
             ? <FormVersion active={isFormVisible} SetActive={setFormVisible} onAddVersion={handleAddVersion} onCancel={hideForm}></FormVersion>
-            : <FormVersion active={isFormVisible} SetActive={setFormVisible} onAddVersion={handleChangeVersion} selectedVersion={selectedVersion} onCancel={hideForm}></FormVersion>}
+            : <FormVersion active={isFormVisible} SetActive={setFormVisible} onAddVersion={handleChangeVersionPreCheck} selectedVersion={selectedVersion} onCancel={hideForm}></FormVersion>}
         </div>
       )}
       

@@ -19,11 +19,14 @@ const FormVersion = ({ active, SetActive, onAddVersion, onCancel, selectedVersio
     }
   }, [selectedVersion]);
 
+
   const AddNewVersion = (e) => {
     e.preventDefault();
     onAddVersion(NewVersion);
     setNewVersion({ n: '', nn: '', nnn: '', descr: '' });
   };
+
+//<MyButton onClick={selectedVersion ? (e) => AddNewVersion(e) : (e) => EditVersion(e)}>Ок</MyButton>
 
   return (
     <div>

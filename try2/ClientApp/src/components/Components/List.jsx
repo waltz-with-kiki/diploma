@@ -25,7 +25,7 @@ const List = ({ remove, children, ClearselectedVersion, onSelectProject, ...prop
 
       {props.Projects.map((item) => (
         <ListItem
-          key={item.id} // Убедитесь, что у ваших элементов есть уникальные ключи
+          key={item.id} 
           item={item}
           onSelect={handleSelectItem}
           isSelected={item === selectedItem}
