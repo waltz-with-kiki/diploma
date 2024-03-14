@@ -139,10 +139,34 @@ const Project = () => {
 
   }
 
-  const EditProject = (project) => {
-    // Ваша логика редактирования
-    console.log("Edit clicked in App:", project);
+  const EditProjectPreCheck = (project, editedName) => {
+    console.log(project);
+    console.log(editedName);
+    const newProjectName = Projects.find(iproject =>
+      iproject.name === editedName
+      );
+
+    if (newProjectName == null){
+        project.name = editedName;
+        EditProject(project);
+    }
   };
+
+  const EditProject = async (project) =>{
+
+    console.log(project);
+
+    const response = await fetch('https://localhost:7150/api/accounts/editproject', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        Id: project.id, Name: project.name 
+      }),
+    });
+
+  }
 
   const DeleteVersion = async (version) => {
 
@@ -195,7 +219,7 @@ const Project = () => {
       <MyButton onClick={AddNewProject}>Добавить</MyButton>
       
       <div className="left-section">
-      <List remove={DeleteProject} Projects={Projects} ClearselectedVersion={setSelectedVersion} onSelectProject={setSelectedProject} onEditProject={EditProject}>Проекты</List>
+      <List remove={DeleteProject} Projects={Projects} ClearselectedVersion={setSelectedVersion} onSelectProject={setSelectedProject} onEditProject={EditProjectPreCheck}>Проекты</List>
       </div>
 
       <div>

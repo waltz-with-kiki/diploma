@@ -1,16 +1,32 @@
 import React, { useState, useEffect } from "react";
 import MyButton from "./UI/MyButton";
+import MyInput from "./UI/MyInput";
 import "../Projectstyles.css"
 
 const ListItem = ({ item, onSelect, isSelected, onEdit, onRemove, ...props}) => {
   const [isEditing, setEditing] = useState(false);
   const [editedName, setEditedName] = useState(item.name);
-  const [isMenuVisible, setMenuVisible] = useState(false);
 
   const handleRemove = (e) => {
     e.stopPropagation();
     onRemove(e, item);
   }
+
+  const handleBlur = () => {
+    console.log(item);
+    console.log(editedName);
+    onEdit(item, editedName);
+    setEditing(false);
+  };
+
+  const handleInputChange = (e) => {
+    setEditedName(e.target.value.trim());
+  };
+
+  const handleEdit = () => {
+    setEditing(true);
+  };
+
 
   return (
     <div
@@ -28,20 +44,18 @@ const ListItem = ({ item, onSelect, isSelected, onEdit, onRemove, ...props}) => 
       onClick={() => onSelect(item)}
     >
       {isEditing ? (
-        // Если происходит редактирование, отображаем поле ввода
-        <input
+        <MyInput
           type="text"
-         // value={editedName}
-         // onChange={handleInputChange}
+          value={editedName}
+          onChange={handleInputChange}
+          onBlur={handleBlur}
         />
       ) : (
-        // Если не происходит редактирование, отображаем статичный текст
-        <span className="span">{item.name}</span>
+        <span className="span">{editedName}</span>
       )}
       
-          {/* Ваша панель */}
           <div className="button-container">
-          <MyButton className="button1" >Изменить</MyButton>
+          <MyButton className="button1" onClick={handleEdit}>Изменить</MyButton>
           <MyButton className="button1" onClick={handleRemove}>Удалить</MyButton>
           </div>
         </div>

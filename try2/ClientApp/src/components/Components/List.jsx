@@ -3,7 +3,7 @@ import ListItem from "./ListItem";
 import MyButton from "./UI/MyButton";
 import "../Projectstyles.css"
 
-const List = ({ remove, children, ClearselectedVersion, onSelectProject, ...props }) => {
+const List = ({ remove, children, ClearselectedVersion, onSelectProject, onEditProject, ...props }) => {
   const [selectedItem, setSelectedItem] = useState(null);
 
   const RemoveSelectedItem = (e, thisItemRemove) => {
@@ -30,10 +30,7 @@ const List = ({ remove, children, ClearselectedVersion, onSelectProject, ...prop
           onSelect={handleSelectItem}
           isSelected={item === selectedItem}
           onRemove={RemoveSelectedItem}
-          onEdit={(editedItem) => {
-            // Обработка изменений
-            console.log("Edited Item:", editedItem);
-          }}
+          onEdit={onEditProject}
         />
       ))}
     </div>

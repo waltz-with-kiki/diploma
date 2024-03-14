@@ -37,7 +37,7 @@ namespace try2.Controllers
 
         public record TransferProjectId : TransferProject
         {
-            public long id { get; set; }
+            public long Id { get; set; }
         }
 
         [HttpPost("addproject")]
@@ -84,19 +84,19 @@ namespace try2.Controllers
         }
 
 
-
+        [HttpPost("editproject")]
         public IActionResult ChangeProject([FromBody] TransferProjectId project)
         {
-            if (project != null && project.id != 0 && project.Name != null && project.Name.Length >= 3 && project.Name.Length < 32)
+            if (project != null && project.Id != 0 && project.Name != null && project.Name.Length >= 3 && project.Name.Length < 32)
             {
-                Project check = _RepProjects.Items.Where(x => x.Id == project.id).FirstOrDefault();
+                Project check = _RepProjects.Items.Where(x => x.Id == project.Id).FirstOrDefault();
 
                 if (check != null)
                 {
                     check.Name = project.Name;
                     _RepProjects.Update(check);
                 }
-                else return BadRequest(new { ErrorMessage = "Проект не получается найти в базе данных" });
+                else return NotFound(new { ErrorMessage = "Проект не получается найти в базе данных" });
                 // Возвращаем успешный статус
                 return Ok();
             }

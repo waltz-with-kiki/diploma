@@ -602,7 +602,6 @@ public partial class AirplanesDbContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Name)
                 .HasMaxLength(32)
-                .IsFixedLength()
                 .HasColumnName("name");
         });
 
