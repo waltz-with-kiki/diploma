@@ -8,4 +8,6 @@ public partial class AircraftType : Entity
 {
 
     public string? Name { get; set; }
+
+    public virtual ICollection<AircraftTypeForExpert>? AircraftTypeForExperts { get; set; }
 }

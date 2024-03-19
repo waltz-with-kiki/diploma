@@ -29,16 +29,34 @@
 
   .page {
     clear: both;
+    opacity: 0;
   }
   
   .left-section {
-    float: left; 
+    float: left;
   width: 50%; 
   }
   
   .right-section {
     float: right; 
   width: 50%; 
+  }
+
+  .formversion{
+    
+    display: flex;
+  }
+
+  .formversion.left{
+    float: left;
+    display: flex;
+    width: 50%;
+  }
+  .formversion.right{
+    
+    display: flex;
+    float: right;
+    width: 50%;
   }
 
   
@@ -81,4 +99,39 @@
   min-width: 100px;
   border-radius: 3px;
   margin: 3px;
+}
+
+.page2{
+  clear: both;
+}
+
+.searchexpert{
+  display: flex;
+}
+
+.expertcomm{
+  display: flex;
+  justify-content: left;
+  margin-top: 100px;
+}
+
+.table-container {
+  margin-top: 10px;
+  width: 50%;
+  border-collapse: collapse;
+}
+
+.table-container table {
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+.table-container th, .table-container td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.table-container th {
+  background-color: #f2f2f2;
 }

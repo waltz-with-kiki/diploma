@@ -106,6 +106,308 @@ namespace try2.DAL.Repositories
 
         }
     }
+
+    public class EducationTypeRepository : DbRepository<EducationType>
+    {
+
+        public override IQueryable<EducationType> Items => base.Items.Include(item => item.Experts);
+
+        public EducationTypeRepository(AirplanesDbContext db) : base(db)
+        {
+
+        }
+    }
+
+    public class ExpertRepository : DbRepository<Expert>
+    {
+
+        public override IQueryable<Expert> Items => base.Items.Include(item => item.EducationNavigation).Include(item => item.AircraftTypeForExperts).Include(item => item.Examinations);
+
+        public ExpertRepository(AirplanesDbContext db) : base(db)
+        {
+
+        }
+    }
+
+
+    public class AircraftTypeRepository : DbRepository<AircraftType>
+    {
+
+        public override IQueryable<AircraftType> Items => base.Items.Include(item => item.AircraftTypeForExperts);
+
+        public AircraftTypeRepository(AirplanesDbContext db) : base(db)
+        {
+
+        }
+    }
+
+    
+
+
+
+    public class HmiQuestionnaireRepository : DbRepository<HmiQuestionnaire>
+    {
+
+        public override IQueryable<HmiQuestionnaire> Items => base.Items
+            .Include(item => item.ExaminationTemplates)
+            .Include(item => item.HmiAnswers)
+            .Include(item => item.HmiQuestionnareGeneralAnswers)
+            .Include(item => item.HmiSectionGeneralAnswers)
+            ;
+
+        public HmiQuestionnaireRepository(AirplanesDbContext db) : base(db)
+        {
+
+        }
+    }
+    
+
+        public class ImQuestionnaireRepository : DbRepository<ImQuestionnaire>
+        {
+
+        public override IQueryable<ImQuestionnaire> Items => base.Items
+            .Include(item => item.ExaminationTemplates)
+            .Include(item => item.ImAnswers)
+            .Include(item => item.ImQuestionnareGeneralAnswers)
+            .Include(item => item.ImSectionGeneralAnswers)
+            ;
+
+        public ImQuestionnaireRepository(AirplanesDbContext db) : base(db)
+        {
+
+        }
+    }
+
+    public class ExaminationTemplateRepository : DbRepository<ExaminationTemplate>
+    {
+
+        public override IQueryable<ExaminationTemplate> Items => base.Items
+            .Include(item => item.Examinations)
+            .Include(item => item.QrhmiNavigation)
+            .Include(item => item.QrimNavigation)
+            ;
+
+        public ExaminationTemplateRepository(AirplanesDbContext db) : base(db)
+        {
+
+        }
+    }
+
+    //8
+    public class ExaminationRepository : DbRepository<Examination>
+    {
+
+        public override IQueryable<Examination> Items => base.Items
+            .Include(item => item.ExaminationTemplate)
+            .Include(item => item.Expert)
+            .Include(item => item.HmiAnswers)
+            .Include(item => item.HmiQuestionnareGeneralAnswers)
+            .Include(item => item.HmiSectionGeneralAnswers)
+            .Include(item => item.ImAnswers)
+            .Include(item => item.ImQuestionnareGeneralAnswers)
+            .Include(item => item.ImSectionGeneralAnswers)
+            .Include(item => item.Version);
+
+        public ExaminationRepository(AirplanesDbContext db) : base(db)
+        {
+
+        }
+    }
+
+
+    public class ImSectionGeneralAnswerRepository : DbRepository<ImSectionGeneralAnswer>
+    {
+
+        public override IQueryable<ImSectionGeneralAnswer> Items => base.Items
+            .Include(item => item.Examination)
+            .Include(item => item.Questionnaire)
+            .Include(item => item.Section);
+
+        public ImSectionGeneralAnswerRepository(AirplanesDbContext db) : base(db)
+        {
+
+        }
+    }
+
+
+
+    public class ImQuestionnareGeneralAnswerRepository : DbRepository<ImQuestionnareGeneralAnswer>
+    {
+
+        public override IQueryable<ImQuestionnareGeneralAnswer> Items => base.Items
+            .Include(item => item.Examination)
+            .Include(item => item.Questionnaire);
+
+        public ImQuestionnareGeneralAnswerRepository(AirplanesDbContext db) : base(db)
+        {
+
+        }
+    }
+
+
+
+    public class HmiQuestionnareGeneralAnswerRepository : DbRepository<HmiQuestionnareGeneralAnswer>
+    {
+
+        public override IQueryable<HmiQuestionnareGeneralAnswer> Items => base.Items
+            .Include(item => item.Examination)
+            
+            .Include(item => item.Questionnaire);
+
+        public HmiQuestionnareGeneralAnswerRepository(AirplanesDbContext db) : base(db)
+        {
+
+        }
+    }
+
+
+
+    public class ImGroupRequestRepository : DbRepository<ImGroupRequest>
+    {
+
+        public override IQueryable<ImGroupRequest> Items => base.Items
+            .Include(item => item.ImRequests)
+            .Include(item => item.InverseParent)
+            .Include(item => item.Parent)
+            ;
+
+        public ImGroupRequestRepository(AirplanesDbContext db) : base(db)
+        {
+
+        }
+    }
+
+    public class ImRequestRepository : DbRepository<ImRequest>
+    {
+
+        public override IQueryable<ImRequest> Items => base.Items
+            .Include(item => item.Group)
+            .Include(item => item.ImAnswers)
+            ;
+
+        public ImRequestRepository(AirplanesDbContext db) : base(db)
+        {
+
+        }
+    }
+
+
+
+    public class HmiGroupRequestRepository : DbRepository<HmiGroupRequest>
+    {
+
+        public override IQueryable<HmiGroupRequest> Items => base.Items
+            .Include(item => item.HmiRequests)
+            .Include(item => item.InverseParent)
+            .Include(item => item.Parent)
+            ;
+
+        public HmiGroupRequestRepository(AirplanesDbContext db) : base(db)
+        {
+
+        }
+    }
+
+
+
+    public class HmiRequestRepository : DbRepository<HmiRequest>
+    {
+
+        public override IQueryable<HmiRequest> Items => base.Items
+            .Include(item => item.Group)
+            .Include(item => item.HmiAnswers)
+            ;
+
+        public HmiRequestRepository(AirplanesDbContext db) : base(db)
+        {
+
+        }
+    }
+
+    public class ImSectionRepository : DbRepository<ImSection>
+    {
+
+        public override IQueryable<ImSection> Items => base.Items
+            .Include(item => item.ImAnswers)
+            .Include(item => item.ImSectionGeneralAnswers)
+            ;
+
+        public ImSectionRepository(AirplanesDbContext db) : base(db)
+        {
+
+        }
+    }
+
+
+    public class HmiSectionRepository : DbRepository<HmiSection>
+    {
+
+        public override IQueryable<HmiSection> Items => base.Items
+            .Include(item => item.HmiAnswers)
+            .Include(item => item.HmiSectionGeneralAnswers)
+            ;
+
+        public HmiSectionRepository(AirplanesDbContext db) : base(db)
+        {
+
+        }
+    }
+
+    public class HmiSectionGeneralAnswerRepository : DbRepository<HmiSectionGeneralAnswer>
+    {
+
+        public override IQueryable<HmiSectionGeneralAnswer> Items => base.Items
+            .Include(item => item.Examination)
+            .Include(item => item.Questionnaire)
+            .Include(item => item.Section)
+            ;
+
+        public HmiSectionGeneralAnswerRepository(AirplanesDbContext db) : base(db)
+        {
+
+        }
+    }
+
+    public class ImAnswerRepository : DbRepository<ImAnswer>
+    {
+
+        public override IQueryable<ImAnswer> Items => base.Items
+            .Include(item => item.Examination)
+            .Include(item => item.Questionnaire)
+            .Include(item => item.Request)
+            .Include(item => item.Section)
+            ;
+
+        public ImAnswerRepository(AirplanesDbContext db) : base(db)
+        {
+
+        }
+    }
+
+
+
+    //19
+    public class HmiAnswerRepository : DbRepository<HmiAnswer>
+    {
+
+        public override IQueryable<HmiAnswer> Items => base.Items
+            .Include(item => item.Examination)
+            .Include(item => item.Questionnaire)
+            .Include(item => item.Request)
+            .Include(item => item.Section)
+            ;
+
+        public HmiAnswerRepository(AirplanesDbContext db) : base(db)
+        {
+
+        }
+    }
+
+
+
+
+
+
     /*  public class UserRepository : DbRepository<User>
       {
 

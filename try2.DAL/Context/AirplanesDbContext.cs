@@ -17,7 +17,7 @@ public partial class AirplanesDbContext : DbContext
 
     public virtual DbSet<AircraftType> AircraftTypes { get; set; }
 
-    public virtual DbSet<AircraftTypeForExpert> AircraftTypeForExperts { get; set; }
+    public virtual DbSet<AircraftTypeForExpert> AircraftTypeForExperts { get; set; } //
 
     public virtual DbSet<EducationType> EducationTypes { get; set; }
 
@@ -37,31 +37,31 @@ public partial class AirplanesDbContext : DbContext
 
     public virtual DbSet<HmiRequest> HmiRequests { get; set; }
 
-    public virtual DbSet<HmiRequestInSection> HmiRequestInSections { get; set; }
+    public virtual DbSet<HmiRequestInSection> HmiRequestInSections { get; set; } //
 
     public virtual DbSet<HmiSection> HmiSections { get; set; }
 
     public virtual DbSet<HmiSectionGeneralAnswer> HmiSectionGeneralAnswers { get; set; }
 
-    public virtual DbSet<HmiSectionInQuestionnaire> HmiSectionInQuestionnaires { get; set; }
+    public virtual DbSet<HmiSectionInQuestionnaire> HmiSectionInQuestionnaires { get; set; } //
 
     public virtual DbSet<ImAnswer> ImAnswers { get; set; }
 
-    public virtual DbSet<ImGroupRequest> ImGroupRequests { get; set; }
-
+    public virtual DbSet<ImGroupRequest> ImGroupRequests { get; set; } 
+    
     public virtual DbSet<ImQuestionnaire> ImQuestionnaires { get; set; }
 
     public virtual DbSet<ImQuestionnareGeneralAnswer> ImQuestionnareGeneralAnswers { get; set; }
 
-    public virtual DbSet<ImRequest> ImRequests { get; set; }
+    public virtual DbSet<ImRequest> ImRequests { get; set; } 
 
-    public virtual DbSet<ImRequestInSection> ImRequestInSections { get; set; }
+    public virtual DbSet<ImRequestInSection> ImRequestInSections { get; set; } //
 
     public virtual DbSet<ImSection> ImSections { get; set; }
 
     public virtual DbSet<ImSectionGeneralAnswer> ImSectionGeneralAnswers { get; set; }
 
-    public virtual DbSet<ImSectionInQuestionnaire> ImSectionInQuestionnaires { get; set; }
+    public virtual DbSet<ImSectionInQuestionnaire> ImSectionInQuestionnaires { get; set; } //
 
     public virtual DbSet<Project> Projects { get; set; }
 

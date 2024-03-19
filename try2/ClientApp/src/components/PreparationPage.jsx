@@ -5,7 +5,7 @@ const PreparationPage = () =>{
 
     return(
         <div>
-            <h1>Подготовка</h1>
+            <h1 style={{float: "left"}}>Подготовка</h1>
             <Project></Project>
         </div>
     );

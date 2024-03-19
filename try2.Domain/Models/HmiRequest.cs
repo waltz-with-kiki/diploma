@@ -15,5 +15,7 @@ public partial class HmiRequest : Entity
 
     public virtual HmiGroupRequest? Group { get; set; }
 
+    public virtual ICollection<HmiRequestInSection> HmiRequestInSections { get; set; } = new List<HmiRequestInSection>();
+
     public virtual ICollection<HmiAnswer> HmiAnswers { get; set; } = new List<HmiAnswer>();
 }

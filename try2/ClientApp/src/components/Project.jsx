@@ -46,7 +46,8 @@ const Project = () => {
     });
 
     hideForm();
-
+// Желательно будет исправить
+    setSelectedProject(null);
     //Как-то обновлять список
 
     fetchProjects();
@@ -214,19 +215,27 @@ const Project = () => {
 
 
   return (
+    <div>
+
     <div className="page">
-      <MyInput style={{marginBottom: "10px"}} value={NewProject.name} onChange={(e) => setNewProject({ ...NewProject, name: e.target.value })}></MyInput>
-      <MyButton onClick={AddNewProject}>Добавить</MyButton>
       
+      <div className="formversion">
+        <div className="formversion left">
+      <MyInput style={{marginRight: "10px", margin: "3px"}} value={NewProject.name} onChange={(e) => setNewProject({ ...NewProject, name: e.target.value })}></MyInput>
+      <MyButton className="button1" onClick={AddNewProject}>Добавить</MyButton>
+      </div>
+      <div className="formversion right">
+          <MyButton className="button1" style={{marginRight: "10px"}} onClick={selectedProject ? () => showForm(true) : () => {}}>Добавить</MyButton>
+          <MyButton className="button1" style={{marginRight: "10px"}} onClick={selectedVersion ? () => showForm(false) : () => {}}>Изменить</MyButton>
+          <MyButton className="button1" onClick={selectedProject && selectedVersion  ? () => DeleteVersion(selectedVersion) : () => {}}>Удалить</MyButton>
+          </div>
+      </div>
+      
+
       <div className="left-section">
       <List remove={DeleteProject} Projects={Projects} ClearselectedVersion={setSelectedVersion} onSelectProject={setSelectedProject} onEditProject={EditProjectPreCheck}>Проекты</List>
       </div>
 
-      <div>
-          <MyButton onClick={selectedProject ? () => showForm(true) : () => {}}>Добавить</MyButton>
-          <MyButton onClick={selectedVersion ? () => showForm(false) : () => {}}>Изменить</MyButton>
-          <MyButton onClick={selectedProject && selectedVersion  ? () => DeleteVersion(selectedVersion) : () => {}}>Удалить</MyButton>
-      </div>
       
 
       <div className="right-section">
@@ -245,6 +254,34 @@ const Project = () => {
         </div>
       )}
       
+    </div>
+
+    <div className="page2">
+    <span>Поиск эксперта БД:</span>
+          <div className="searchexpert">
+            <MyInput ></MyInput>
+            <MyButton>Поиск</MyButton>
+            </div>
+            <div className="expertcomm">
+              <MyButton className="button1">Добавить</MyButton>
+              <MyButton className="button1">Изменить</MyButton>
+              <MyButton className="button1">Удалить</MyButton>
+            </div>
+            <div>
+              <table className="table-container">
+                <thead>
+                  <tr>
+                    <th>Фамилия</th>
+                    <th>Имя</th>
+                    <th>Отчество</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+              </table>
+            </div>
+    </div>
     </div>
   );
 

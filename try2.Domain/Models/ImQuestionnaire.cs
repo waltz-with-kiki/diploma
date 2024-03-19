@@ -15,6 +15,8 @@ public partial class ImQuestionnaire : Entity
 
     public virtual ICollection<ImAnswer> ImAnswers { get; set; } = new List<ImAnswer>();
 
+    public virtual ICollection<ImSectionInQuestionnaire> ImSectionInQuestionnaires { get; set; } = new List<ImSectionInQuestionnaire>();
+
     public virtual ICollection<ImQuestionnareGeneralAnswer> ImQuestionnareGeneralAnswers { get; set; } = new List<ImQuestionnareGeneralAnswer>();
 
     public virtual ICollection<ImSectionGeneralAnswer> ImSectionGeneralAnswers { get; set; } = new List<ImSectionGeneralAnswer>();

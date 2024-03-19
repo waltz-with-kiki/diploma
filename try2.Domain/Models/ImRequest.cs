@@ -15,5 +15,7 @@ public partial class ImRequest : Entity
 
     public virtual ImGroupRequest? Group { get; set; }
 
+    public virtual ICollection<ImRequestInSection> ImRequestInSections { get; set; } = new List<ImRequestInSection>();
+
     public virtual ICollection<ImAnswer> ImAnswers { get; set; } = new List<ImAnswer>();
 }
