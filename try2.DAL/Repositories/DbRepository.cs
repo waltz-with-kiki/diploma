@@ -121,7 +121,9 @@ namespace try2.DAL.Repositories
     public class ExpertRepository : DbRepository<Expert>
     {
 
-        public override IQueryable<Expert> Items => base.Items.Include(item => item.EducationNavigation).Include(item => item.AircraftTypeForExperts).Include(item => item.Examinations);
+        public override IQueryable<Expert> Items => base.Items.Include(item => item.EducationNavigation)
+            //.Include(item => item.AircraftTypeForExperts)
+            .Include(item => item.Examinations);
 
         public ExpertRepository(AirplanesDbContext db) : base(db)
         {

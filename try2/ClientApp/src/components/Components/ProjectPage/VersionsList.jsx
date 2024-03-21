@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import MyButton from "./UI/MyButton";
+import MyButton from "../UI/MyButton";
 import VersionItem from "./VersionItem";
-import "../Projectstyles.css"
+import "../../Projectstyles.css"
 
-const VersionsList = ({ remove, children , selectedProject, selectedVersion, ...props}) =>{
+const VersionsList = ({ remove, children , versions, selectedVersion, ...props}) =>{
 
     const [selectedItem, setSelectedItem] = useState(null);
 
@@ -18,7 +18,7 @@ const VersionsList = ({ remove, children , selectedProject, selectedVersion, ...
       
       setSelectedItem(null);
       selectedVersion(null);
-  }, [selectedProject]);
+  }, );
 
     const handleSelectItem = (item) => {
         setSelectedItem(item);
@@ -27,17 +27,23 @@ const VersionsList = ({ remove, children , selectedProject, selectedVersion, ...
 
     return(
       <div>
-        <strong>{children}</strong>
-        <div className="list">
-            {selectedProject.versions.map((item) => (
+        <div>
+  <strong>{children}</strong>
+  <div className="list">
+    {versions === null ? (
+      <h1>Версий нет</h1>
+    ) : (
+      versions.map((item) => (
         <VersionItem
           key={item.id} 
           item={item}
           onSelect={handleSelectItem}
           isSelected={item === selectedItem}
         />
-      ))}
-    </div>
+      ))
+    )}
+  </div>
+</div>
     </div>
     );
 }

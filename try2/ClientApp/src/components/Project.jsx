@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import MyButton from "./Components/UI/MyButton";
 import MyInput from "./Components/UI/MyInput";
-import List from "./Components/List";
-import VersionsList from "./Components/VersionsList";
-import FormVersion from "./Components/FormVersion";
+import List from "./Components/ProjectPage/List";
+import VersionsList from "./Components/ProjectPage/VersionsList";
+import FormVersion from "./Components/ProjectPage/FormVersion";
 import "./Projectstyles.css";
 import MyModal from "./Components/UI/MyModal/MyModal";
 
@@ -196,6 +196,20 @@ const Project = () => {
     
   }
 
+  const SortedVersions = useMemo(() => {
+    if (selectedProject && selectedProject.versions) {
+      return [...selectedProject.versions].sort((a, b) => {
+        if (a.n !== b.n) {
+          return b.n - a.n; 
+        }
+        if (a.nn !== b.nn) {
+          return b.nn - a.nn; 
+        }
+        return b.nnn - a.nnn; 
+      });
+    }
+    return [];
+  }, [selectedProject]);
 
   useEffect(() => {
     // Вызов метода GET при монтировании компонента
@@ -240,7 +254,7 @@ const Project = () => {
 
       <div className="right-section">
       {(selectedProject && selectedProject.versions && selectedProject.versions.length > 0) && (
-        <VersionsList remove={DeleteVersion} selectedProject={selectedProject} selectedVersion={setSelectedVersion} >
+        <VersionsList remove={DeleteVersion} versions={SortedVersions} selectedVersion={setSelectedVersion} >
           Версии
         </VersionsList>
       )}
@@ -254,33 +268,6 @@ const Project = () => {
         </div>
       )}
       
-    </div>
-
-    <div className="page2">
-    <span>Поиск эксперта БД:</span>
-          <div className="searchexpert">
-            <MyInput ></MyInput>
-            <MyButton>Поиск</MyButton>
-            </div>
-            <div className="expertcomm">
-              <MyButton className="button1">Добавить</MyButton>
-              <MyButton className="button1">Изменить</MyButton>
-              <MyButton className="button1">Удалить</MyButton>
-            </div>
-            <div>
-              <table className="table-container">
-                <thead>
-                  <tr>
-                    <th>Фамилия</th>
-                    <th>Имя</th>
-                    <th>Отчество</th>
-                  </tr>
-                </thead>
-                <tbody>
-
-                </tbody>
-              </table>
-            </div>
     </div>
     </div>
   );

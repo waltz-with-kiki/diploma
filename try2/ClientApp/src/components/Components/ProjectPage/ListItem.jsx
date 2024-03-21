@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import MyButton from "./UI/MyButton";
-import MyInput from "./UI/MyInput";
-import "../Projectstyles.css"
+import MyButton from "../UI/MyButton";
+import MyInput from "../UI/MyInput";
+import "../../Projectstyles.css"
 
 const ListItem = ({ item, onSelect, isSelected, onEdit, onRemove, ...props}) => {
   const [isEditing, setEditing] = useState(false);

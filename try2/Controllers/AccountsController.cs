@@ -16,10 +16,15 @@ namespace try2.Controllers
 
         private readonly IRepository<Project> _RepProjects;
 
-        public AccountsController(IRepository<Project> Projects, IRepository<Version> Versions)
+        private readonly IRepository<Expert> _RepExperts;
+
+        public AccountsController(IRepository<Project> Projects
+            , IRepository<Version> Versions, 
+            IRepository<Expert> Experts)
         {
             _RepProjects = Projects;
             _RepVersions = Versions;
+            _RepExperts = Experts;
         }
 
         [HttpGet("projects")]
@@ -223,6 +228,13 @@ namespace try2.Controllers
             }
 
             return NoContent();
+        }
+
+
+        [HttpGet("experts")]
+        public ICollection<Expert> GetExperts()
+        {
+            return _RepExperts.Items.ToList();
         }
 
 

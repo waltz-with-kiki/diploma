@@ -29,7 +29,7 @@
 
   .page {
     clear: both;
-    opacity: 0;
+    opacity: 1;
   }
   
   .left-section {
@@ -134,4 +134,23 @@
 
 .table-container th {
   background-color: #f2f2f2;
+}
+
+.ExpertPanel{
+  display: flex;
+}
+
+.ExpertPanel.left{
+  width: 70%;
+}
+
+.ExpertPanel.right{
+  border: 1px solid salmon;
+  padding: 10px;
+  border-radius: 5px;
+  width: 50%;
+}
+
+.ExpertPanel.left, .ExpertPanel.right {
+  box-sizing: border-box;
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import MyButton from './UI/MyButton';
-import MyInput from './UI/MyInput';
-import MyModal from './UI/MyModal/MyModal';
+import MyButton from '../UI/MyButton';
+import MyInput from '../UI/MyInput';
+import MyModal from '../UI/MyModal/MyModal';
 
 const FormVersion = ({ active, SetActive, onAddVersion, onCancel, selectedVersion, ...props }) => {
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ListItem from "./ListItem";
-import MyButton from "./UI/MyButton";
-import "../Projectstyles.css"
+import MyButton from "../UI/MyButton";
+import "../../Projectstyles.css"
 
 const List = ({ remove, children, ClearselectedVersion, onSelectProject, onEditProject, ...props }) => {
   const [selectedItem, setSelectedItem] = useState(null);
