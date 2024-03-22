@@ -10,6 +10,5 @@ public partial class AircraftType : Entity
 
     public string? Name { get; set; }
 
-    [NotMapped]
     public virtual ICollection<AircraftTypeForExpert>? AircraftTypeForExperts { get; set; }
 }

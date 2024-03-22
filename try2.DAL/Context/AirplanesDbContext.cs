@@ -93,22 +93,24 @@ public partial class AirplanesDbContext : DbContext
 
         modelBuilder.Entity<AircraftTypeForExpert>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("aircraft_type_for_experts");
+            entity.HasKey(e => new { e.AircraftTypeId, e.ExpertId });
+
+            entity.ToTable("aircraft_type_for_experts");
 
             entity.Property(e => e.AircraftTypeId).HasColumnName("aircraft_type_id");
             entity.Property(e => e.ExpertId).HasColumnName("expert_id");
 
-            entity.HasOne(d => d.AircraftType).WithMany()
+            entity.HasOne(d => d.AircraftType)
+                .WithMany(d => d.AircraftTypeForExperts)
                 .HasForeignKey(d => d.AircraftTypeId)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("aircraft_fk");
 
-            entity.HasOne(d => d.Expert).WithMany()
-                .HasForeignKey(d => d.ExpertId)
-                .OnDelete(DeleteBehavior.Cascade)
-                .HasConstraintName("expert_fk");
+            entity.HasOne(ate => ate.Expert)
+                  .WithMany(ate => ate.AircraftTypeForExperts)
+                  .HasForeignKey(ate => ate.ExpertId)
+                  .OnDelete(DeleteBehavior.Cascade)
+                  .HasConstraintName("expert_fk");
         });
 
         modelBuilder.Entity<EducationType>(entity =>
@@ -209,6 +211,7 @@ public partial class AirplanesDbContext : DbContext
                 .HasForeignKey(d => d.Education)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("education_fk");
+
         });
 
         modelBuilder.Entity<HmiAnswer>(entity =>

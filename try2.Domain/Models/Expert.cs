@@ -25,7 +25,6 @@ public partial class Expert : Entity
     public int? PilotClass { get; set; }
 
 
-    [NotMapped]
     public virtual ICollection<AircraftTypeForExpert>? AircraftTypeForExperts { get; set; }
 
     public virtual EducationType? EducationNavigation { get; set; }

@@ -9,7 +9,7 @@ namespace try2.DAL.Interfaces
     public interface IRepository<T> where T : class, new()
     {
         IQueryable<T> Items { get; }
-
+        
         T Get(long id);
 
         Task GetAsync(long id);

@@ -18,13 +18,17 @@ namespace try2.Controllers
 
         private readonly IRepository<Expert> _RepExperts;
 
+        private readonly IRepository<AircraftType> _RepAircraftTypes;
+
         public AccountsController(IRepository<Project> Projects
             , IRepository<Version> Versions, 
-            IRepository<Expert> Experts)
+            IRepository<Expert> Experts,
+            IRepository<AircraftType> AircraftTypes)
         {
             _RepProjects = Projects;
             _RepVersions = Versions;
             _RepExperts = Experts;
+            _RepAircraftTypes = AircraftTypes;
         }
 
         [HttpGet("projects")]
@@ -232,9 +236,15 @@ namespace try2.Controllers
 
 
         [HttpGet("experts")]
-        public ICollection<Expert> GetExperts()
+        public async Task<ICollection<Expert>> GetExperts()
         {
-            return _RepExperts.Items.ToList();
+            return await _RepExperts.Items.ToListAsync();
+        }
+
+        [HttpGet("aircrafttypes")]
+        public async Task<ICollection<AircraftType>> GetAircraftTypes()
+        {
+            return await _RepAircraftTypes.Items.ToListAsync();
         }
 
 

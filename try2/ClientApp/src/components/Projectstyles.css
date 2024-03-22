@@ -150,7 +150,3 @@
   border-radius: 5px;
   width: 50%;
 }
-
-.ExpertPanel.left, .ExpertPanel.right {
-  box-sizing: border-box;
-}

@@ -20,7 +20,7 @@ const ExpertDetails = ({Expert}) => {
           <MySpan point={"Летный стаж, г"}>{expert.serviceYear}</MySpan>
           <MySpan point={"Налёт, ч"}>{expert.flightHours}</MySpan>
           <MySpan point={"Лётный класс"}>{expert.pilotClass}</MySpan>
-          <MySpan point={"Тип пилотируемых ЛА"}>{/* Здесь тип пилотируемых ЛА */}</MySpan>
+          <MySpan point={"Тип пилотируемых ЛА"}>{expert.aircraftTypeForExperts.map((aircraftType) => aircraftType.aircraftType.name).join(', ')}</MySpan>
           <MySpan point={"Образование"}>{expert.educationNavigation && expert.educationNavigation.name}</MySpan>
         </>
       ) : (
@@ -31,3 +31,5 @@ const ExpertDetails = ({Expert}) => {
 }
 
 export default ExpertDetails
+
+           
