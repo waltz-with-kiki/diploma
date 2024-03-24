@@ -147,7 +147,7 @@ const Project = () => {
       iproject.name === editedName
       );
 
-    if (newProjectName == null){
+    if (newProjectName == null && editedName.length >= 3){
         project.name = editedName;
         EditProject(project);
     }

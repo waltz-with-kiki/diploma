@@ -16,6 +16,7 @@ const ListItem = ({ item, onSelect, isSelected, onEdit, onRemove, ...props}) => 
     console.log(item);
     console.log(editedName);
     onEdit(item, editedName);
+    setEditedName(item.name)
     setEditing(false);
   };
 
@@ -51,7 +52,7 @@ const ListItem = ({ item, onSelect, isSelected, onEdit, onRemove, ...props}) => 
           onBlur={handleBlur}
         />
       ) : (
-        <span className="span">{editedName}</span>
+        <span className="span">{item.name}</span>
       )}
       
           <div className="button-container">

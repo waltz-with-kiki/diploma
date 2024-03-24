@@ -18,7 +18,7 @@ const VersionsList = ({ remove, children , versions, selectedVersion, ...props})
       
       setSelectedItem(null);
       selectedVersion(null);
-  }, );
+  }, [versions]);
 
     const handleSelectItem = (item) => {
         setSelectedItem(item);
